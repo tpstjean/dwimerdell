@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
-// [RequireComponent(typeof(BoxCollider2D))]
+[RequireComponent(typeof(BoxCollider2D))]
 public class PlayerController : MonoBehaviour
 {
 
@@ -45,7 +45,7 @@ public class PlayerController : MonoBehaviour
     {
         if (_dashCooldown <= 0.0 && _rbody.velocity.magnitude >= 0.1f)
         {
-            Debug.Log("Player is dashing");
+            gameObject.layer = LayerMask.NameToLayer("Player-Dash");
             _isDashing = true;
             _dashStopped = false;
             _dashCooldown = DASH_COOLDOWN;
@@ -65,6 +65,7 @@ public class PlayerController : MonoBehaviour
             _dashStopped = true;
             _isDashing = false;
             _rbody.velocity = Vector2.zero;
+            gameObject.layer = LayerMask.NameToLayer("Default");
         }
     }
 
